@@ -179,7 +179,8 @@
             function dom(e, index){
                 let ind = index || 0,str = e.map(item => {
                     if(item.child && item.child.length){
-                        return `<div class="node-tree-item node-tree-ind${ind || ''}" id="node-${item.id}">${show}${icon}<span class="node-content">${item.text}</span>
+                        return `<div class="node-tree-item node-tree-ind${ind || ''}" id="node-${item.id}">
+                            ${show}${icon}<span class="node-content">${item.text}</span>
                             ${dom(item.child, ind+1)}
                         </div>`
                     }else{
