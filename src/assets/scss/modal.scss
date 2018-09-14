@@ -1,0 +1,64 @@
+//	弹窗组件公用样式
+
+.case-wrapper{
+	//	动画样式
+	&.hidden{
+		display: none;
+	}
+	&.mov-top{
+		.case-content{
+			transform: translateY(100px);
+		}
+	}
+	&.active{
+		.case-content{
+			animation: movBottom .4s ease;
+		}
+	}
+	@keyframes movBottom {
+		0%{
+			transform: translateY(-100px);
+			filter: opacity(.3);
+		}
+		100%{
+			transform: translateY(0px);
+			filter: opacity(1);
+		}
+	}
+	.case-content{
+		width: 1018px;
+		height: 80vh;
+		position: fixed;
+		z-index: 10;
+		margin: auto;
+		left: 0;
+		right: 0;
+		top: 0;
+		bottom: 0;
+		background: #fff;
+		transform: translateY(0px);
+		transition: transform .3s ease;
+		.case-info-body{
+			height: calc(100% - 120px);
+			overflow-y: auto;			
+		}
+		.btn-wrapper{
+			text-align: center;
+			.btn{
+				border: 1px solid #d2d2d2;
+				color: #666666;
+				display: inline-block;
+				border-radius: 3px;
+				text-align: center;
+				cursor: pointer;
+				margin: 10px;
+				-webkit-user-select: none;
+				user-select: none;
+				&.active{
+					color: white;
+					background: #1890ff;
+				}
+			}
+		}
+	}
+}
