@@ -64,7 +64,20 @@
            				name: "系统管理",
            				link: "department",
            				index: 'system/department',
-           				icon: "iconfont icon-sousuo"
+           				icon: "iconfont icon-sousuo",
+           				children: [{
+           					name: "系统管理",
+	           				link: "department",
+	           				index: 'system/department',
+           				},{
+           					name: "租户管理",
+	           				link: "tenant",
+	           				index: 'system/tenant',
+           				},{
+           					name: "系统维护",
+	           				link: "repaire",
+	           				index: 'system/repaire',
+           				}]
            			},{
            				name: "首页",
            				link: "search",

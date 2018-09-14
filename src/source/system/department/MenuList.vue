@@ -13,6 +13,7 @@
 		        class="item"
 		        :depth="(parseInt(depth)||0)+1"
 		        v-for="model in model.children"
+		        :key="model.id"
 		        :model="model" 
 		        :current="current" 
 		        @choose="choose">

@@ -7,7 +7,8 @@ import login from '@/source/home/login'
 
 //  系统管理
 import department from '@/source/system/department/index.vue'
-
+import tenant from '@/source/system/tenant/index.vue'
+import repaire from '@/source/system/repaire/index.vue'
 
 Vue.use(Router)
 
@@ -20,7 +21,8 @@ export default new Router({
             redirect: {name: 'department'},
             children: [
                 {path: 'system/department',component: department,name: "department",meta:{alias: "系统管理"}},
-
+                {path: 'system/tenant',component: tenant,name: "tenant",meta:{alias: "租户管理"}},
+                {path: 'system/repaire',component: repaire,name: "repaire",meta:{alias: "维护管理"}}
            ]
       	},{
             name: 'notfound',
