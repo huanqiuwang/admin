@@ -13,12 +13,13 @@
                     :index="activeIndex"
                     @changeTabHandle="changeTabItem"
                     @deleteTabHandle="deleteTabItem"></app-tabs>
-
-                <transition name="slide-fade">
-                    <keep-alive :include="cacheTabs">
-                        <router-view></router-view>
-                    </keep-alive>
-                </transition>
+                <div class="system-wrapper">
+                    <transition name="slide-fade">
+                        <keep-alive :include="cacheTabs">
+                            <router-view></router-view>
+                        </keep-alive>
+                    </transition>
+                </div>
             </div>
             
         </div>
@@ -34,7 +35,6 @@
 
 
     export default {
-        name: 'togetherMac',
         data () {
             return {
                 tabs: [{

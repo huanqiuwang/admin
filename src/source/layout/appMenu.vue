@@ -61,6 +61,11 @@
            			// 	icon: "iconfont icon-shouye"
            			// },
            			{
+           				name: "系统管理",
+           				link: "department",
+           				index: 'system/department',
+           				icon: "iconfont icon-sousuo"
+           			},{
            				name: "首页",
            				link: "search",
            				index: '/search/default',
