@@ -9,6 +9,8 @@ import login from '@/source/home/login'
 import department from '@/source/system/department/index.vue'
 import tenant from '@/source/system/tenant/index.vue'
 import repaire from '@/source/system/repaire/index.vue'
+import group from '@/source/system/group/index.vue'
+
 
 Vue.use(Router)
 
@@ -21,6 +23,7 @@ export default new Router({
             redirect: {name: 'department'},
             children: [
                 {path: 'system/department',component: department,name: "department",meta:{alias: "系统管理"}},
+                {path: 'system/group',component: group,name: "group",meta:{alias: "组织管理"}},
                 {path: 'system/tenant',component: tenant,name: "tenant",meta:{alias: "租户管理"}},
                 {path: 'system/repaire',component: repaire,name: "repaire",meta:{alias: "维护管理"}}
            ]

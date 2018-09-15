@@ -70,6 +70,10 @@
 	           				link: "department",
 	           				index: 'system/department',
            				},{
+           					name: "组织管理",
+	           				link: "group",
+	           				index: 'system/group',
+           				},{
            					name: "租户管理",
 	           				link: "tenant",
 	           				index: 'system/tenant',
