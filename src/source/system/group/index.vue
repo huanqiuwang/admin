@@ -1,11 +1,11 @@
 <template>
 	<div class="ty-content tenant-content">
-		<div>
-			<span class="btn active">添加组织</span>
+		<div class="ty-query-list">
+			<span class="btn active" @click="showAdd">添加组织</span>
 		</div>
-		<div class="total-info">
-			<span class="el-icon-info"></span>
-			<span>共用 <label>{{ total || 0 }}</label>个组织</span>
+		<div class="ty-total-info">
+			<label class="el-icon-info"></label>
+			<span>共用 <label>{{ total || 0 }}</label> 个组织</span>
 		</div>
 		<div class="ty-table">
 			<el-table
@@ -28,18 +28,30 @@
 				@handleCurrentChange="handleCurrentChange"
 				:pageTotal="total"></page-split>
 		</div>
+
+		<!-- 添加编辑组织 -->
+		<user-add
+			@closeHandle="closeAdd"
+			:activeClass="showAddClass"
+			:data="defaultData.orgData"></user-add>
 	</div>
 </template>
 <script>
 	import AJAX, { loading, CancelToken, transformRequest } from 'ajax'
 	import pageSplit from '../../components/common/pageSplit.vue'
+	import addBox from './box.vue'
 
 	export default {
 		components: {
-			'page-split': pageSplit
+			'page-split': pageSplit,
+			'user-add': addBox,
 		},
 		data () {
 			return {
+				defaultData: {
+					orgData: {}
+				},
+				showAddClass: 'hidden',
 				tableData: [],
 				total: 0,
 				ajaxCache: {
@@ -55,6 +67,12 @@
 			dataInit: function(){
 
 			},
+			showAdd: function(){
+				this.showAddClass = 'active';
+			},
+			closeAdd: function(){
+				this.showAddClass = 'hidden'
+			},
 			handleSizeChange: function(e){
 				this.dataInit(e, 0, 0);
 			},
@@ -64,3 +82,10 @@
 		}
 	}
 </script>
+<style lang="scss" scoped>
+	.ty-query-list{
+		.btn{
+			margin-left: 0;
+		}
+	}
+</style>

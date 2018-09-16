@@ -125,6 +125,38 @@ $table-border-color: #ebeef5;
         background: #efefef;
         float: left;
         padding: 15px;
+        .system-wrapper{
+            background: white;
+            height: calc(100% - 80px);
+            border-radius: 0 0 5px 5px;
+            overflow-y: auto;
+            padding-bottom: 40px;
+            .ty-content{
+                padding: 0 15px;
+                .ty-query-list{
+                    padding: 10px 0;
+                }
+                .ty-total-info{
+                    border-radius: 3px;
+                    background: $coop-color;
+                    padding: 7px 10px;
+                    margin-bottom: 10px;
+                    label{
+                        color: $active-color;
+                    }
+                }
+                .ty-page-split{
+                    position: fixed;
+                    width: calc(100% - 290px);
+                    right: 15px;
+                    bottom: 15px;
+                    padding: 6px 10px;
+                    background: $coop-color;
+                    border-radius: 0 0 5px 5px;
+                    text-align: right;
+                }
+            }
+        }
     }
 }
 .mini-mode .right-content{
@@ -133,15 +165,8 @@ $table-border-color: #ebeef5;
 
 
 /**************************************************
-                搜索页页面样式
+                系统管理页面样式
  **************************************************/
-.system-wrapper{
-    width: calc(100% - 20px);
-    height: calc(100% - 103px);
-    font-size: 13px;
-    overflow-y: hidden;
-    background: white;
-    border-radius: 0 0 5px 5px;
-    padding: 0 0 66px 20px;
-    position: relative;
-}   
+.tenant-content{
+    
+}

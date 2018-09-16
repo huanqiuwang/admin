@@ -1,6 +1,6 @@
 <template>
 	<div class="ty-content tenant-content">
-		<div>
+		<div class="ty-query-list">
 			<span class="btn active">添加组织</span>
 		</div>
 		<div class="total-info">
