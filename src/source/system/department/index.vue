@@ -4,8 +4,8 @@
 		<!-- 头部查询 -->
 		<div class="department-query-case">
 			<input type="text" v-model="searchKey" placeholder="查找成员或部门" >
-			<span class="btn active">查询</span>
-			<span class="btn">清空</span>
+			<span class="btn active" @click="queryInit">查询</span>
+			<span class="btn" @click="reset">清空</span>
 		</div>
 
 		<!-- 内容显示 -->
@@ -86,6 +86,15 @@
 			}
 		},
 		methods: {
+			reset: function(){
+				this.searchKey = '';
+			},
+			queryInit: function(){
+				this.dataInit();
+			},
+			dataInit: function(page_now, page_size, refresh){
+				
+			},
 			handleSizeChange: function(e){
 				this.dataInit(1, e, 1);
 			},
