@@ -4,7 +4,7 @@ export default {
   ...base,
   ...{
   	// server: 'http://huanqiu.net:8011'    	  // 内网测试地址
-    server: 'http://68.68.8.60:8011'    	// 内网测试地址
+    server: 'http://192.168.8.60:8011'    	// 内网测试地址
 	  // server: 'http://192.168.6.4:8011'      	// 李少华
     // server: 'http://192.168.6.7:8011'      	// 雷琨
     // server: 'http://192.168.6.8:8011'      	// 陈龙锋

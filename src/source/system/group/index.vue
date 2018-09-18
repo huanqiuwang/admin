@@ -11,13 +11,18 @@
 			<el-table
 			    :data="tableData"
 			    stripe>
-			    <el-table-column prop="name" label="组织名称" width="180"></el-table-column>
-			    <el-table-column prop="time" label="有效期" width="180"></el-table-column>
+			    <el-table-column label="序号">
+					<template slot-scope="scope">
+						{{scope.$index + 1 + (ajaxCache.ajaxpageNumber-1) * ajaxCache.pageSize}}
+					</template>
+			    </el-table-column>
+			    <el-table-column prop="name" label="组织名称"></el-table-column>
+			    <el-table-column prop="time" label="有效期"></el-table-column>
 			    <el-table-column prop="remark" label="备注"></el-table-column>
-			    <el-table-column label="操作">
+			    <el-table-column label="操作" width="150">
 			    	<template slot-scope="scope">
 			    		<el-button size="mini" @click="edit(scope.$index, scope.row)">编辑</el-button>
-						<el-button size="mini" @click="edit(scope.$index, scope.row)">权限配置</el-button>
+						<el-button size="mini" @click="jurisdiction(scope.$index, scope.row)">权限配置</el-button>
 			    	</template>
 			    </el-table-column>
 		  	</el-table>
@@ -34,17 +39,24 @@
 			@closeHandle="closeAdd"
 			:activeClass="showAddClass"
 			:data="defaultData.orgData"></user-add>
+
+		<jurisdiction-set
+			:activeClass="jurisdictionClass"
+			:data="jurisdictionJson"
+			@closeHandle="closeJuridiction"></jurisdiction-set>
 	</div>
 </template>
 <script>
 	import AJAX, { loading, CancelToken, transformRequest } from 'ajax'
 	import pageSplit from '../../components/common/pageSplit.vue'
 	import addBox from './box.vue'
+	import jurisdiction from './jurisdiction.vue'
 
 	export default {
 		components: {
 			'page-split': pageSplit,
 			'user-add': addBox,
+			'jurisdiction-set': jurisdiction,
 		},
 		data () {
 			return {
@@ -52,20 +64,25 @@
 					orgData: {}
 				},
 				showAddClass: 'hidden',
+				jurisdictionClass: 'hidden',
 				tableData: [],
 				total: 0,
 				ajaxCache: {
 					pageNumber: 1,
 					pageSize: 50,
-				}
+				},
+				jurisdictionJson: {}
 			}
 		},
 		methods: {
 			queryInit: function(){
 
 			},
-			dataInit: function(){
-
+			dataInit: async function(page_now, page_size, refresh){
+				this.ajaxCache.pageNumber = page_now || 1;
+				this.ajaxCache.pageSize = page_size || this.ajaxCache.pageSize;
+				let list = await loading(AJAX.get("123",this.ajaxCache));
+				this.tableData = list.result;
 			},
 			showAdd: function(){
 				this.showAddClass = 'active';
@@ -74,11 +91,18 @@
 				this.showAddClass = 'hidden'
 			},
 			handleSizeChange: function(e){
-				this.dataInit(e, 0, 0);
+				this.dataInit(1, e, 1);
 			},
 			handleCurrentChange: function(e){
-				this.dataInit(1, e, 0);
+				this.dataInit(e, 0, 1);
 			},
+			closeJuridiction: function(){
+				this.jurisdictionClass = 'hidden';
+			},
+			jurisdiction: function(index, row){
+				this.jurisdictionJson = row;
+				this.jurisdictionClass = 'active';
+			}
 		}
 	}
 </script>

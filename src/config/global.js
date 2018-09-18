@@ -17,11 +17,27 @@ const MAX_QUERY_NUMBER = 3,
 		NAME: 20,
 		EMAIL: 30,
 		REMARK: 50,
-		DESTNAME: 30
+		DESTNAME: 30,
+		IDCARD: 20,
+		POLICEID: 10,
+		IPLIST: 80,
+		PHONE: 11,
 	},
 	TIPS = {
 		imgUpload: '上传的图片的不能大于1M',
 		email: '请输入正确格式的邮箱！',
+		idcard: '身份证号码由数字与大写字母组成,长度为15或者18位！',
+		policeid: '警号由数字组成，长度为10位以内！',
+		iplist: '非法的ip地址,ip地址范围 0.0.0.0~255.255.255.255,允许输入多个IP地址，中间以‘,’进行分隔',
+		phone: '手机号码由11位数字组成！',
+		email: '非法的邮箱地址，邮箱中必须含有@与.,并且@在.之前',
+	},
+	REGS = {
+		idcard: /^(\d{15}[\dA-Z]{3}?)?$/,
+		policeid: /^(\d{1,10})?$/,
+		iplist: /^((((\d{1,2})|(1\d{1,2})|(2[0-4]\d)|(25[0-5]))\.){3}((\d{1,2})|(1\d{1,2})|(2[0-4]\d)|(25[0-5]))(,(((\d{1,2})|(1\d{1,2})|(2[0-4]\d)|(25[0-5]))\.){3}((\d{1,2})|(1\d{1,2})|(2[0-4]\d)|(25[0-5])))*)?$/,
+		phone: /^(\d{11})?$/,
+		email: /^(.+@.+\..+)?$/,
 	}
 
 
@@ -80,6 +96,7 @@ export {
 	MAX_UPLOAD_IMG,
 	TIPS,
 	MAX,
+	REGS,
 	tyCheckNull,
 	tyCheckBlank,
 	tyCheckLength,

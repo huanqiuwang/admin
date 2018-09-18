@@ -1,19 +1,19 @@
 <template>
 	<!-- 添加案件 -->
 	<div class="case-wrapper" :class="activeClass+' '+animationClass">
-		<div class="case-content">
+		<div class="case-content group-content">
 			<case-header @closeFormMood="close" :title="title"></case-header>
 			<div class="case-info-body">
 				<div class="case-info-main">
 					<div class="case-input-list">
 						<div class="case-input-item">
 							<span><b>*</b>组织名称：</span>
-							<input type="text" v-model="name" placeholder="请输入" />
+							<input type="text" v-model="name" placeholder="请输入" :maxlength="max.COMMON" />
 						</div>
 						<div class="case-input-item">
 							<span><b>*</b>有效期：</span>
 							<el-date-picker
-						        v-model="time"
+						        v-model="date"
 	  					        type="daterange"
 	  					        align="right"
 	  					        unlink-panels
@@ -27,12 +27,12 @@
 							<span>备注：</span>
 							<textarea v-model="remark" placeholder="请输入" :maxlength="max.REMARK"></textarea>
 						</div>
-						<div class="btn-wrapper">
-							<span class="btn active">添加</span>
-							<span class="btn" @click="close">关闭</span>
-						</div>
 					</div>
 				</div>
+			</div>
+			<div class="btn-wrapper">
+				<span class="btn active" @click="add">添加</span>
+				<span class="btn" @click="close">关闭</span>
 			</div>
 		</div>
 		<back-mood @closeFormMood="close"></back-mood>
@@ -40,7 +40,7 @@
 </template>
 <script>
 	import AJAX, { loading, CancelToken, transformRequest } from 'ajax'
-	import {backMood,caseHeader,caseTypeSelect} from '../../components/common/TYbox/index.js'
+	import {backMood, caseHeader, caseTypeSelect, tip} from '../../components/common/TYbox/index.js'
 	import { MAX } from '../../../config/global.js'
 	
 	export default {
@@ -63,47 +63,43 @@
 		components: {
 			'back-mood': backMood,
 			'case-header': caseHeader,
-			'case-type-select': caseTypeSelect
+			'case-type-select': caseTypeSelect,
+			'error-tip': tip
 		},
 		data () {
 			return {
 				animationClass: '',
 				title: '添加组织',
 				addAjaxData: {
-		        	alias: '',
-		        	caseTypeId: '',
-		        	CaseLongitude: '',
-		        	Caselatitude: '',
-		        	address: '',
-		        	description: ''
+		        
 		        },
 		        max: MAX,
-		        time: '',
+		        date: '',
 		        name: '',
 		        remark: '',
 		        pickerOptions2: {
 	          	shortcuts: [{
-		            text: '最近一周',
+		            text: '最近一年',
 		            onClick(picker) {
 		              const end = new Date();
 		              const start = new Date();
-		              start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
+		              end.setTime(start.getTime() + 3600 * 1000 * 24 * 365);
 		              picker.$emit('pick', [start, end]);
 		            }
 		          }, {
-		            text: '最近一个月',
+		            text: '最近两年',
 		            onClick(picker) {
 		              const end = new Date();
 		              const start = new Date();
-		              start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+		              end.setTime(start.getTime() + 3600 * 1000 * 24 * 365 * 2);
 		              picker.$emit('pick', [start, end]);
 		            }
 		          }, {
-		            text: '最近三个月',
+		            text: '最近五年',
 		            onClick(picker) {
 		              const end = new Date();
 		              const start = new Date();
-		              start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
+		              end.setTime(start.getTime() + 3600 * 1000 * 24 * 365 * 5);
 		              picker.$emit('pick', [start, end]);
 		            }
 		          }]
@@ -112,34 +108,30 @@
 		},
 		methods: {
 			reset: function(){
-				
+				this.date = '';
+				this.name = '';
+				this.remark = '';
 			},
 			add: async function(){
-				if(!this.addAjaxData.caseTypeId){
-					this.$message("请选择案件类型！");
-				}else if(!this.addAjaxData.alias){
-					this.$message("请输入案件别名！");
+				if(!this.name){
+					this.$message("请输入组织名称！");
+				}else if(!this.date){
+					this.$message("请选择有效期限！");
 				}else{
-					var res = await loading(AJAX.post("case/add",this.addAjaxData));
+					var res = await loading(AJAX.post("group/add",{
+						stime: Date.parse(this.date[0]),
+						etime: Date.parse(this.date[1]),
+						name: this.name,
+						id: this.data.id,
+						remark: this.remark
+					}));
 				 	this.$message({
-			          	message: '添加成功！',
+			          	message: res.message || '操作成功！',
 			          	type: 'success'
 			        });
 					this.reset();
 					this.close(1);
 				}
-			},
-			edit: async function(){
-				var res = await loading(AJAX.post("case/update",this.addAjaxData));
-				this.$message({
-		          	message: '修改成功！',
-		          	type: 'success'
-		        });
-				this.reset();
-				this.close(1);
-			},
-			refreshType: function(e){
-				this.addAjaxData.caseTypeId = e.key;
 			},
 			close: function(e){
 				let _this = this;
@@ -158,17 +150,10 @@
 						this.reset();
 					}else if(this.dataType === 'edit'){
 						this.title = '编辑组织';
-						let { ADDRESS, ALIAS, CAPTURETIME, CASELONGITUDE, CASELATITUDE, CASETYPEID, DESCRIPTION, RID} = JSON.parse(this.data);
-						this.addAjaxData  = {
-							alias: ALIAS,
-							rid: RID,
-				        	caseTypeId: CASETYPEID,
-				        	CaseLongitude: CASELONGITUDE || '',
-				        	Caselatitude: CASELATITUDE || '',
-				        	address: ADDRESS || '',
-				        	description: DESCRIPTION || ''
-						}
-						this.addmap = CASELONGITUDE?(CASELONGITUDE||'') + ',' + (CASELATITUDE||''):'';
+						let { name, stime, etime, remark, id } = this.data;
+						this.name = name;
+						this.date = [new Date(stime),new Date(etime)];
+						this.remark = remark;
 					}
 				}
 			},
@@ -178,4 +163,15 @@
 <style lang="scss">
 	@import "../../../assets/scss/modal.scss";
 
+	.case-wrapper{
+		.case-content{
+			&.group-content{
+				height: 450px;
+				.case-info-body{
+					overflow-y: auto;
+					height: 300px;
+				}
+			}
+		}
+	}
 </style>

@@ -55,6 +55,9 @@ $table-border-color: #ebeef5;
         opacity: .8;
     }
 }
+input::placeholder{
+    color: rgba(0,0,0,.35);
+}
 //  遮罩层
 .el-loading-mask.is-fullscreen{
     background-color: rgba(41, 41, 41, 0.58);
@@ -141,6 +144,7 @@ $table-border-color: #ebeef5;
                     background: $coop-color;
                     padding: 7px 10px;
                     margin-bottom: 10px;
+                    border: 1px solid #bbdeff;
                     label{
                         color: $active-color;
                     }
@@ -168,5 +172,7 @@ $table-border-color: #ebeef5;
                 系统管理页面样式
  **************************************************/
 .tenant-content{
-    
+    &>div:nth-child(1){
+        margin-top: 20px;
+    }
 }

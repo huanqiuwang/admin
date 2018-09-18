@@ -5,11 +5,19 @@
 		    depth='0'
 		    :model="treeData" 
 		    @choose="chooseItem" 
-		    :current="currentId">
+		    :current="currentId"
+		    :current1="current1">
 	  	</menu-list>
+		
+		<add-depart
+			:activeClass="departClass"
+			:defaultKey="defaultParent"
+			@closeHandle="closeDepart"></add-depart>
 	</div>
 </template>
 <script>
+	import addDepart from './addDepart.vue'
+
 	var data = {
 	  	name: '树形结构菜单',
 	  	id: 1,
@@ -46,19 +54,38 @@
 	import MenuList from './MenuList.vue';
 	export default {
 		components: {
-			'menu-list': MenuList
+			'menu-list': MenuList,
+			'add-depart': addDepart,
 		},
 		data () {
 			return {
 				treeData: data,
 		    	currentId: '0',
+		    	current1: '0',
+		    	departClass: "hidden",
+		    	defaultParent: ''
 			}
 	  	},
 	  	methods: {
 		    chooseItem(info) {
-		    	this.currentId = info.id
-		      	console.log(this.currentId)
-		    }
+		    	if(info.type === 'showCopration'){
+		    		this.current1 = info.id;
+		    	}else if(info.type === 'close'){
+		    		this.current1 = '0';
+		    	}else if(info.type === 'add'){
+		    		this.defaultKey = '';
+		    		this.departClass = 'active';
+		    	}else if(info.type === 'alter'){
+		    		this.defaultKey = info.id;
+		    		this.departClass = 'active';
+		    	}else{
+		    		this.currentId = info.id
+		    	}
+		      	console.log(info);
+		    },
+		    closeDepart: function(){
+				this.departClass = 'hidden';
+			}
 	  	}
 	}
 </script>

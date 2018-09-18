@@ -1,11 +1,16 @@
 <template>
 	<div class="menu-list">
-	    <div :style="'padding-left: ' + (depth || 0)*20 + 'px'" :class="{bold: isFolder, active: model.id == current}"
+	    <div :style="'padding-left: ' + (depth || 0)*20 + 'px'" :class="{active: model.id == current}"
 	    	class="menu-item" 
   	        @click="toggle">
   	        <span v-if="isFolder" :class="open?'el-icon-caret-bottom':'el-icon-caret-right'"></span>
   	        <span>{{model.name}}</span>
   	        <span class="el-icon-more" @click.stop="showCopration(model.id)"></span>
+			<copration-case
+				@copration="choose"
+				@closeBtn="closeBtn"
+				v-if="current1 == model.id"
+				:id="model.id"></copration-case>
 	    </div>
 
 	    <div class="menu-ul-case" v-show="open" v-if="isFolder">
@@ -15,14 +20,15 @@
 		        v-for="model in model.children"
 		        :key="model.id"
 		        :model="model" 
-		        :current="current" 
+		        :current="current"
+		        :current1="current1"
 		        @choose="choose">
 	      	</department-menu>
 	    </div>
   	</div>
 </template>
 <script>
-	// import MenuItem from './MenuItem.vue';
+	import copration from './copration.vue';
 
 	export default {
 		name: 'department-menu',
@@ -31,9 +37,15 @@
 		    current: {
 		    	required: false
 		    },
+		    current1: {
+		    	required: false
+		    },
 		    depth: {
 		    	required: false
 		    }
+	  	},
+	  	components: {
+	  		'copration-case': copration
 	  	},
 	  	data: function () {
 		    return {
@@ -54,11 +66,26 @@
 		      this.choose(this.model)
 		    },
 		    choose (info) {
-		    	this.$emit('choose', info)
+		    	this.$emit('choose', {
+		    		id: info.id,
+		    		type: info.type || ''
+		    	})
 		    },
 		    showCopration: function(id){
-				alert(id);
+				this.$emit('choose', {
+		    		id: id,
+		    		type: 'showCopration'
+		    	})
 			},
+			copration: function(e){
+				this.$emit("copration", e);
+			},
+			closeBtn: function(){
+				this.$emit('choose', {
+					id: '',
+					type: 'close'
+				})
+			}
 	  	}
 	}
 </script>

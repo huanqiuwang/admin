@@ -66,7 +66,7 @@
            				index: 'system/department',
            				icon: "iconfont icon-sousuo",
            				children: [{
-           					name: "系统管理",
+           					name: "部门管理",
 	           				link: "department",
 	           				index: 'system/department',
            				},{
