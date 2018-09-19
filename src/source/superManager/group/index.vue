@@ -11,13 +11,17 @@
 			<el-table
 			    :data="tableData"
 			    stripe>
-			    <el-table-column label="序号">
+			    <el-table-column label="序号" width="60">
 					<template slot-scope="scope">
-						{{scope.$index + 1 + (ajaxCache.ajaxpageNumber-1) * ajaxCache.pageSize}}
+						{{scope.$index + 1 + (ajaxCache.pageNumber-1) * ajaxCache.pageSize}}
 					</template>
 			    </el-table-column>
 			    <el-table-column prop="name" label="组织名称"></el-table-column>
-			    <el-table-column prop="time" label="有效期"></el-table-column>
+			    <el-table-column prop="time" label="有效期" :formatter="hqDateFormat1">
+					<template slot-scope="scope">
+						{{hqDateFormatYMD(scope.row.startTime)}} - {{hqDateFormatYMD(scope.row.endTime)}}
+					</template>
+			    </el-table-column>
 			    <el-table-column prop="remark" label="备注"></el-table-column>
 			    <el-table-column label="操作" width="150">
 			    	<template slot-scope="scope">
@@ -38,7 +42,7 @@
 		<user-add
 			@closeHandle="closeAdd"
 			:activeClass="showAddClass"
-			:data="defaultData.orgData"></user-add>
+			:data="defaultData"></user-add>
 
 		<jurisdiction-set
 			:activeClass="jurisdictionClass"
@@ -52,6 +56,8 @@
 	import addBox from './box.vue'
 	import jurisdiction from './jurisdiction.vue'
 
+	import { testData } from './index.js'
+
 	export default {
 		components: {
 			'page-split': pageSplit,
@@ -60,12 +66,10 @@
 		},
 		data () {
 			return {
-				defaultData: {
-					orgData: {}
-				},
+				defaultData: {},
 				showAddClass: 'hidden',
 				jurisdictionClass: 'hidden',
-				tableData: [],
+				tableData: testData,
 				total: 0,
 				ajaxCache: {
 					pageNumber: 1,
@@ -75,9 +79,6 @@
 			}
 		},
 		methods: {
-			queryInit: function(){
-
-			},
 			dataInit: async function(page_now, page_size, refresh){
 				this.ajaxCache.pageNumber = page_now || 1;
 				this.ajaxCache.pageSize = page_size || this.ajaxCache.pageSize;
@@ -85,11 +86,17 @@
 				this.tableData = list.result;
 			},
 			showAdd: function(){
+				this.defaultData = {};
+				this.showAddClass = 'active';
+			},
+			edit: function(index, row){
+				this.defaultData = row;
 				this.showAddClass = 'active';
 			},
 			closeAdd: function(){
 				this.showAddClass = 'hidden'
 			},
+
 			handleSizeChange: function(e){
 				this.dataInit(1, e, 1);
 			},

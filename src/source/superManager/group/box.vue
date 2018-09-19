@@ -145,14 +145,14 @@
 			activeClass: function(){
 				if(this.activeClass === 'active'){
 					this.animationClass = '';
-					if(this.dataType === 'add'){
+					if(!this.data.id){
 						this.title = '添加组织';
 						this.reset();
-					}else if(this.dataType === 'edit'){
+					}else if(!!this.data.id){
 						this.title = '编辑组织';
-						let { name, stime, etime, remark, id } = this.data;
+						let { name, startTime, endTime, remark, id } = this.data;
 						this.name = name;
-						this.date = [new Date(stime),new Date(etime)];
+						this.date = [new Date(startTime),new Date(endTime)];
 						this.remark = remark;
 					}
 				}

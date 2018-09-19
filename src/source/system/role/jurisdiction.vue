@@ -1,5 +1,5 @@
 <template>
-	<!-- 权限配置 -->
+	<!-- 添加案件 -->
 	<div class="case-wrapper" :class="activeClass+' '+animationClass">
 		<div class="case-content">
 			<case-header @closeFormMood="close" :title="title"></case-header>

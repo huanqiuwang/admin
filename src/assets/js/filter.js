@@ -30,6 +30,28 @@ export default {
 		    }
 		}
 
+        Vue.prototype.hqDateFormatYMD = e => {
+            var date;
+            if((e+'').length === 10){
+                e = parseInt(e)*1000;
+            }
+            date = new Date(parseInt(e));
+            if(date == "Invalid Date" || parseInt(e) == 0){
+                return '------';
+            }else{
+                var year = date.getFullYear(),
+                    month = date.getMonth()+1,
+                    day = date.getDate(),
+                    hour = date.getHours(),
+                    min = date.getMinutes(),
+                    sec = date.getSeconds(),
+                    newTime = year + '-' +
+                        (month < 10? '0' + month : month) + '-' +
+                        (day < 10? '0' + day : day);
+                return newTime; 
+            }
+        }
+
         //  elements插件里面的table 日期格式化
 		Vue.prototype.hqDateFormat1 = function(row,col,cellValue){
             var date,e = cellValue;

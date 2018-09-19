@@ -42,7 +42,7 @@ export default new Router({
                 {path: 'super/tenant',component: tenant,name: "tenant",meta:{alias: "租户管理"}},
                 {path: 'super/repaire',component: repaire,name: "repaire",meta:{alias: "维护管理"}},
                 {
-                  path: 'system/menuset',
+                  path: 'super/menuset',
                   component: repaireMenu,
                   name: "repaireMenu",
                   props: ({query: {id}}) => ({id}),
