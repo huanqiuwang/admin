@@ -63,151 +63,54 @@
            			{
            				name: "系统管理",
            				link: "department",
-           				index: 'system/department',
+           				index: 'system',
            				icon: "iconfont icon-sousuo",
            				children: [{
            					name: "部门管理",
 	           				link: "department",
 	           				index: 'system/department',
            				},{
+           					name: "角色管理",
+	           				link: "role",
+	           				index: 'system/role',
+           				},{
+           					name: "日志管理",
+	           				link: "log",
+	           				index: 'system/log',
+           				}]
+           			},{
+           				name: "个人中心",
+           				link: "userCenter",
+           				index: 'userCenter',
+           				icon: "iconfont icon-sousuo",
+           				children: [{
+           					name: "个人信息",
+	           				link: "userinfo",
+	           				index: 'user/userinfo',
+           				},{
+           					name: "我的任务",
+	           				link: "task",
+	           				index: 'user/task',
+           				}]
+           			},{
+           				name: "超管管理中心",
+           				link: "superManager",
+           				index: 'superManager',
+           				icon: "iconfont icon-sousuo",
+           				children: [{
            					name: "组织管理",
 	           				link: "group",
-	           				index: 'system/group',
+	           				index: 'super/group',
            				},{
            					name: "租户管理",
 	           				link: "tenant",
-	           				index: 'system/tenant',
+	           				index: 'super/tenant',
            				},{
            					name: "系统维护",
 	           				link: "repaire",
-	           				index: 'system/repaire',
+	           				index: 'super/repaire',
            				}]
-           			},{
-           				name: "首页",
-           				link: "search",
-           				index: '/search/default',
-           				icon: "iconfont icon-sousuo"
-           			},{
-           				name: "数据查询",
-           				link: "search",
-           				icon: "iconfont icon-shujuchaxun",
-           				index: '3',
-           				children: [
-	           				{
-	           					name: "IMSI/IMEI",
-           						link: "searchImei",
-           						index: '/search/imei/list'
-	           				},{
-	           					name: "MAC查询",
-           						link: "searchMac",
-           						index: '/search/mac/list'
-	           				},{
-	           					name: "车牌查询",
-           						link: "searchCar",
-           						index: '/search/car/list'
-	           				},{
-	           					name: "人像查询",
-           						link: "searchFace",
-           						index: '/search/face/list'
-	           				},{
-	           					name: "区域数据",
-           						link: "areaData",
-           						index: '/search/areadata/list'
-	           				}
-           				]
-           			},{
-           				name: "研判工具",
-           				link: "/",
-           				icon: "iconfont icon-TYxiaoicon_yanpangongju",
-           				index: '4',
-           				children: [
-	           				{
-	           					name: "同行分析",
-           						link: "/",
-           						index: '4-1',
-           						icon: "iconfont icon-tonghangfenxi",
-           						children: [
-           							{
-           								name: "IMSI/IMEI同行",
-           								link: 'togetherImei',
-           								index: '/determine/together/imei'
-           							},{
-           								name: "MAC同行",
-           								link: 'togetherMac',
-           								index: '/determine/together/mac'
-           							}
-           						]
-	           				},{
-	           					name: "碰撞分析",
-           						link: "/",
-           						index: '4-2',
-           						icon: "iconfont icon-pengzhuangfenxi",
-           						children: [
-           							{
-           								name: "IMEI/IMSI碰撞",
-           								link: "imsiImpact",
-           								index: "/determine/impact/imsi"
-           							},{
-           								name: "MAC碰撞",
-           								link: "macImpact",
-           								index: "/determine/impact/mac"
-           							}
-           						]
-	           				},{
-	           					name: "关联分析",
-           						link: "/",
-           						index: '4-3',
-           						icon: "iconfont icon-guanlianfenxi",
-           						children: [
-           							{
-           								name: "IMSI/IMEI关联MAC",
-           								link: 'IjoinM',
-           								index: '/determine/imei/join/mac'
-           							},{
-           								name: "IMSI/IMEI关联车牌",
-           								link: 'IjoinC',
-           								index: '/determine/imei/join/car'
-           							},{
-           								name: "MAC关联IMEI/IMSI",
-           								link: 'MjoinI',
-           								index: '/determine/mac/join/imei'
-           							},{
-           								name: "MAC关联车牌",
-           								link: 'MjoinC',
-           								index: '/determine/mac/join/car'
-           							},{
-           								name: "车牌关联IMSI/IMEI",
-           								link: 'CjoinI',
-           								index: '/determine/car/join/imei'
-           							},{
-           								name: "车牌关联MAC",
-           								link: 'CjoinM',
-           								index: '/determine/car/join/mac'
-           							}
-           						]
-	           				},{
-	           					name: "集合运算",
-           						link: "/",
-           						index: '4-4',
-           						icon: "iconfont icon-jiheyunsuan",
-           						children: [
-           							{
-           								name: "IMSI集合运算",
-           								link: 'AnalyzeToolIMSICalculation',
-           								index: 'map/analyze/imsi/calculation'
-           							},{
-           								name: "MAC集合运算",
-           								link: 'AnalyzeToolMACCalculation',
-           								index: 'map/analyze/mac/calculation'
-           							},{
-           								name: "车牌集合运算",
-           								link: 'AnalyzeToolCarCalculation',
-           								index: 'map/analyze/car/calculation'
-           							}
-           						]
-	           				}
-           				]
-           			}
+           			},
            			// ,{
            			// 	name: "布控管理",
            			// 	link: "search",
